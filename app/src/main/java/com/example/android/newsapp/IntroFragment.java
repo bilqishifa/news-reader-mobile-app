@@ -38,10 +38,6 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
                 mUrl = givenUrl;
         }
 
-        // see implementation note in ApiQueryBuilder
-        /*String givenUrl = getArguments().getString("url");
-        if (givenUrl != null && !givenUrl.isEmpty()) mUrl = givenUrl;*/
-
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(getActivity());
 

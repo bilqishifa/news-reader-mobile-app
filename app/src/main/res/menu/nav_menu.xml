@@ -6,24 +6,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_intro"
-            android:icon="@drawable/ic_launcher_background"
             android:title="home" />
         <item
             android:id="@+id/nav_seightseeing"
-            android:icon="@drawable/ic_launcher_background"
             android:title="@string/art" />
         <item
             android:id="@+id/nav_seightseeing1"
-            android:icon="@drawable/ic_launcher_background"
             android:title="@string/science" />
 
         <item
             android:id="@+id/nav_seightseeing2"
-            android:icon="@drawable/ic_launcher_background"
             android:title="@string/green" />
         <item
             android:id="@+id/nav_seightseeing3"
-            android:icon="@drawable/ic_launcher_background"
             android:title="@string/tech" />
     </group>
 
@@ -31,11 +26,9 @@
         <menu>
             <item
                 android:id="@+id/calendar"
-                android:icon="@drawable/ic_launcher_background"
                 android:title="@string/add_to_list"/>
             <item
                 android:id="@+id/share"
-                android:icon="@drawable/ic_launcher_background"
                 android:title="@string/share"/>
         </menu>
     </item>

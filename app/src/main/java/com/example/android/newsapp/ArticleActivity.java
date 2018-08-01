@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import static com.example.android.newsapp.ApiQueryBuilder.*;
+
 /**
  * resources: Coding in Flow Navigation Drawer with Fragments tutorial
  * I also reverse engineered the template navigation bar that Android Studio provides
@@ -50,7 +52,7 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         if(savedInstanceState == null){
             //instantiate a new bundle + a fragment
             Bundle bundle = new Bundle();
-            bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.INTRO));
+            bundle.putString("url", apiQuery(INTRO));
 
             IntroFragment introFragment = new IntroFragment();
 
@@ -66,22 +68,22 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         Bundle bundle = new Bundle();
         switch (item.getItemId()){
             case 0:
-                bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.CULTURE));
+                bundle.putString("url", apiQuery(CULTURE));
                 introFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
                 break;
             case 1:
-                bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.SCIENCE));
+                bundle.putString("url", apiQuery(SCIENCE));
                 introFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
                 break;
             case 2:
-                bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.TRAVEL_UK));
+                bundle.putString("url", apiQuery(TRAVEL_UK));
                 introFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
                 break;
             case 3:
-                bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.TECH));
+                bundle.putString("url", apiQuery(TECH));
                 introFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
                 break;
