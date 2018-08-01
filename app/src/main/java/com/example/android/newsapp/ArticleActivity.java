@@ -48,14 +48,14 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         toggle.syncState();
 
         if(savedInstanceState == null){
-            //instantiate a new Fragment
-            IntroFragment introFragment = new IntroFragment();
-            //getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
-
-            // bring bundled data
+            //instantiate a new bundle + a fragment
             Bundle bundle = new Bundle();
-            introFragment.setArguments(bundle);
             bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.INTRO));
+
+            IntroFragment introFragment = new IntroFragment();
+
+            introFragment.setArguments(bundle);
+
             navigationView.setCheckedItem(R.id.nav_intro);
         }
     }
