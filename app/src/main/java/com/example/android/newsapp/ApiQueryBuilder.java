@@ -9,11 +9,11 @@ public class ApiQueryBuilder {
      */
     // sections
     public static final String CULTURE = "&tag=culture/culture", SCIENCE = "&tag=science/science",
-            TRAVEL_UK = "&tag=travel/uk", TECH = "&tag=technology/technology";
+            TRAVEL_UK = "&tag=travel/uk", TECH = "&tag=technology/technology", INTRO = "";
 
     // API query base note it is ordered by latest publications w/size limit of 3 articles
     public static final String API_URL =
-            "https://content.guardianapis.com/search?q=editions?q=uk&order-by=newest&page-size=3&show-fields=thumbnail%2Cbyline";
+            "https://content.guardianapis.com/search?q=editions?q=uk&order-by=newest&page-size=4&show-fields=thumbnail%2Cbyline";
 
     // decided against caching this information for now
     private static final String API_KEY = "&api-key=f33fec42-5b38-4790-a4b7-960bdea7b568";
