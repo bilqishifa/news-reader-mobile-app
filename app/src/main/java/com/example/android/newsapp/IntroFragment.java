@@ -32,9 +32,15 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.rb_recyclerview,container,false);
 
+        if (getArguments() != null && getArguments().containsKey("url")){
+            String givenUrl = getArguments().getString("url");
+            if (givenUrl != null && !givenUrl.isEmpty())
+                mUrl = givenUrl;
+        }
+
         // see implementation note in ApiQueryBuilder
-        String givenUrl = getArguments().getString("url");
-        if (givenUrl != null && !givenUrl.isEmpty()) mUrl = givenUrl;
+        /*String givenUrl = getArguments().getString("url");
+        if (givenUrl != null && !givenUrl.isEmpty()) mUrl = givenUrl;*/
 
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(getActivity());

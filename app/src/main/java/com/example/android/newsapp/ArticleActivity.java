@@ -48,29 +48,41 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         toggle.syncState();
 
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
+            //instantiate a new Fragment
+            IntroFragment introFragment = new IntroFragment();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
+
+            // bring bundled data
+            Bundle bundle = new Bundle();
+            introFragment.setArguments(bundle);
+            bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.INTRO));
             navigationView.setCheckedItem(R.id.nav_intro);
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        IntroFragment introFragment = new IntroFragment();
         Bundle bundle = new Bundle();
         switch (item.getItemId()){
             case 0:
                 bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.CULTURE));
+                introFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
                 break;
             case 1:
                 bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.SCIENCE));
+                introFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
                 break;
             case 2:
                 bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.TRAVEL_UK));
+                introFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
                 break;
             case 3:
                 bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.TECH));
+                introFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
                 break;
             case R.id.calendar:
