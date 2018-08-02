@@ -30,7 +30,7 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
 
     public static final String LOG_TAG = ArticleActivity.class.getName();
 
-    private static final int NEWS_LOADER_ID = 0;
+    //private static final int NEWS_LOADER_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,45 +50,44 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         toggle.syncState();
 
         if(savedInstanceState == null){
-            //instantiate a new bundle + a fragment
+            //instantiate a new bundle + fragment
             Bundle bundle = new Bundle();
-            bundle.putString("url", apiQuery(INTRO));
-
-            IntroFragment introFragment = new IntroFragment();
-
-            introFragment.setArguments(bundle);
-
+            bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.INTRO));
+            IntroFragment introFragment = IntroFragment.newInstance(bundle);
+            //bundle content to fragment
+            getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
             navigationView.setCheckedItem(R.id.nav_intro);
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        IntroFragment introFragment = new IntroFragment();
+        IntroFragment introFragment;
         Bundle bundle = new Bundle();
         switch (item.getItemId()){
             case 0:
-                bundle.putString("url", apiQuery(CULTURE));
-                introFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
+                // bundle content according to section
+                bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.CULTURE));
+                introFragment = IntroFragment.newInstance(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case 1:
-                bundle.putString("url", apiQuery(SCIENCE));
-                introFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
+                bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.SCIENCE));
+                introFragment = IntroFragment.newInstance(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case 2:
-                bundle.putString("url", apiQuery(TRAVEL_UK));
-                introFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
+                bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.TRAVEL_UK));
+                introFragment = IntroFragment.newInstance(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case 3:
-                bundle.putString("url", apiQuery(TECH));
-                introFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.f_container, new IntroFragment()).commit();
+                bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.TECH));
+                introFragment = IntroFragment.newInstance(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case R.id.calendar:
-                Toast.makeText(this, "Saved in reading list", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Saved to reading list", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.share:
                 Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
