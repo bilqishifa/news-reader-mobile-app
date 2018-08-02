@@ -106,9 +106,8 @@ public class QueryUtils {
                 String title = currentQuery.getString("webTitle");
                 String publishedDate = currentQuery.getString("webPublicationDate");
                 String url = currentQuery.getString("webUrl");
-
                 //int image,
-                JSONObject jsonChild2Response = jsonChildResponse.getJSONObject("fiels");
+                JSONObject jsonChild2Response = currentQuery.getJSONObject("fields");
                 String author = jsonChild2Response.optString("byline"); // will return empty string if no value assigned
                 String thumbnail = jsonChild2Response.optString("thumbnail");
 

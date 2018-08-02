@@ -8,6 +8,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,12 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
         // required
     }
 
+    public static IntroFragment newInstance(Bundle bundle){
+        IntroFragment introFragment = new IntroFragment();
+        introFragment.setArguments(bundle);
+        return introFragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,15 +47,15 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
 
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(getActivity());
-
-        mAdapter.setOnItemClickListener(new ArticleAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                //method
-            }
-        });
         return rootView;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getLoaderManager().initLoader(1, null, this);
+    }
+
 
     @NonNull
     @Override
@@ -62,6 +69,14 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setLayoutManager(mLayoutManager);
             mAdapter = new ArticleAdapter((ArrayList <Article>) data);
+
+              mAdapter.setOnItemClickListener(new ArticleAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //method
+                Log.i("item ", "position" + position);
+            }
+        });
             mRecyclerView.setAdapter(mAdapter);
         }
     }
