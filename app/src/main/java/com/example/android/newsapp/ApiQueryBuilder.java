@@ -8,7 +8,7 @@ public class ApiQueryBuilder {
      * This section is informed by the app built by Stephen Wood - https://github.com/doowtnehpets/BitBacklashNewsfeed
      */
     // sections
-    public static final String CULTURE = "&tag=culture/culture", SCIENCE = "&tag=science/science",
+    public static final String CULTURE = "&section=culture", SCIENCE = "&section=science",
             TRAVEL_UK = "&tag=travel/uk", TECH = "&tag=technology/technology", INTRO = "";
 
     // API query base note it is ordered by latest publications w/size limit of 3 articles

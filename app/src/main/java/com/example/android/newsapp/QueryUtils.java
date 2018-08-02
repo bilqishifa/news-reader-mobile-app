@@ -91,7 +91,7 @@ public class QueryUtils {
         }
 
         //instantiate array based on query
-        List <Article> articles = new ArrayList <>();
+        List<Article> articles = new ArrayList <Article>();
 
         try {
             JSONObject jsonParentResponse = new JSONObject(articleJSON);
