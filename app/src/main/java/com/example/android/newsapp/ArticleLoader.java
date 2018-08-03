@@ -8,7 +8,7 @@ import android.util.Log;
 
 import java.util.List;
 
-public class ArticleLoader extends AsyncTaskLoader<List<Article>> {
+public class ArticleLoader extends AsyncTaskLoader <List <Article>> {
     private String url;
 
     public ArticleLoader(@NonNull Context context, String url) {
@@ -25,12 +25,11 @@ public class ArticleLoader extends AsyncTaskLoader<List<Article>> {
     @Nullable
     @Override
     public List <Article> loadInBackground() {
-        if (url == null)
-        {
+        if (url == null) {
             return null;
         }
         Log.e("load in background ", "loads ok");
-        List<Article> articles = QueryUtils.fetchArticleData(url);
+        List <Article> articles = QueryUtils.fetchArticleData(url);
         return articles;
     }
 }

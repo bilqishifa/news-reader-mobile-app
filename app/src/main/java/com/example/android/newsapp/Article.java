@@ -3,13 +3,12 @@ package com.example.android.newsapp;
 import android.graphics.Bitmap;
 
 class Article {
-    //missing context here
 
-    private String mTitle, mSection, mContent, mAuthor, mUrl, mDate;
-    private Bitmap mImageUrl; //Bitmap image, , String url mUrl = url;
+    private String mTitle, mSection, mAuthor, mUrl, mDate;
+    private Bitmap mImageUrl; // String url mUrl = url;
 
 
-    public Article( String section, String title, String author, String date, String url,  Bitmap image){
+    public Article(String section, String title, String author, String date, String url, Bitmap image) {
         mSection = section;
         mTitle = title;
         mAuthor = author;

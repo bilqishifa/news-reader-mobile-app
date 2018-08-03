@@ -3,7 +3,6 @@ package com.example.android.newsapp;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-//public class ArticleAdapter extends ArrayAdapter{
 public class ArticleAdapter extends RecyclerView.Adapter <ArticleAdapter.ArticleViewHolder> {
     private ArrayList <Article> mArticle;
     private OnItemClickListener mListener;
@@ -54,8 +52,7 @@ public class ArticleAdapter extends RecyclerView.Adapter <ArticleAdapter.Article
                         if (position != RecyclerView.NO_POSITION) ;
                         {
                             listener.onItemClick(position);
-                            Log.i("NA position is", " No. " + position);
-
+                            //Log.i("NA position is", " No. " + position);
                             //Intent will go here
                         }
                     }
@@ -77,11 +74,10 @@ public class ArticleAdapter extends RecyclerView.Adapter <ArticleAdapter.Article
         return nvh;
     }
 
-    //String section, String title, String content, String author, String date, String ur
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
         Article currentItem = mArticle.get(position);
-        if (currentItem.getImageUrl() != null){
+        if (currentItem.getImageUrl() != null) {
             holder.mImageUrl.setImageBitmap(currentItem.getImageUrl());
         }
         holder.mSection.setText(currentItem.getSection());
