@@ -84,14 +84,14 @@ public class QueryUtils {
         return jsonResponse;
     }
 
-    private static List <Article> parseJson (String articleJSON) {
+    private static List <Article> parseJson(String articleJSON) {
         //abort operation if data is invalid
         if (TextUtils.isEmpty(articleJSON)) {
             return null;
         }
 
         //instantiate array based on query
-        List<Article> articles = new ArrayList <Article>();
+        List <Article> articles = new ArrayList <Article>();
 
         try {
             JSONObject jsonParentResponse = new JSONObject(articleJSON);
@@ -99,7 +99,7 @@ public class QueryUtils {
             //get array
             JSONArray articleArray = jsonChildResponse.getJSONArray("results");
 
-            for (int i = 0; i < articleArray.length(); i++){
+            for (int i = 0; i < articleArray.length(); i++) {
                 JSONObject currentQuery = articleArray.getJSONObject(i);
 
                 String section = currentQuery.getString("sectionName");
@@ -121,7 +121,7 @@ public class QueryUtils {
         return articles;
     }
 
-    public static List<Article> fetchArticleData(String requestUrl){
+    public static List <Article> fetchArticleData(String requestUrl) {
         URL url = generateUrl(requestUrl);
 
         String jsonResponse = null;
@@ -141,7 +141,7 @@ public class QueryUtils {
             bitmap = BitmapFactory.decodeStream(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e(LOG_TAG, "error decoding bitmap: ",e);
+            Log.e(LOG_TAG, "error decoding bitmap: ", e);
         }
         return bitmap;
     }

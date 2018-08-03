@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:scrollbars="vertical"
+        android:layout_marginBottom="@dimen/d4dp"
+        android:layout_marginTop="@dimen/d4dp"
         android:background="@android:color/transparent"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="56dp"/>
+        android:padding="@dimen/d4dp"
+        android:scrollbars="vertical" />
 
-</RelativeLayout>
+</LinearLayout>

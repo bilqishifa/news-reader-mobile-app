@@ -16,40 +16,41 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import static com.example.android.newsapp.ApiQueryBuilder.*;
-
 /**
- * resources: Coding in Flow Navigation Drawer with Fragments tutorial
- * I also reverse engineered the template navigation bar that Android Studio provides
+ * resources:   Coding in Flow Navigation Drawer with Fragments tutorial
+ *              https://github.com/codepath/android_guides/wiki/Fragment-Navigation-Drawer
+ *              I also reverse engineered the template navigation bar that Android Studio provides
+ * Special thanks to Iip from Udacity, who was a terrific mentor during this process.
  */
 
-public class ArticleActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<List<Article>>{
+public class ArticleActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks <List <Article>> {
     private DrawerLayout drawer;
+    private Toolbar toolbar;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle toggle;
     private ArticleAdapter adapter;
     private TextView emtyStateText;
 
     public static final String LOG_TAG = ArticleActivity.class.getName();
-
-    //private static final int NEWS_LOADER_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.layout_drawer);
-        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navbaropen, R.string.navbarclose);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             //instantiate a new bundle + fragment
             Bundle bundle = new Bundle();
             bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.INTRO));
@@ -61,10 +62,20 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+        //open drawer
+        case android.R.id.home:
+        drawer.openDrawer(GravityCompat.START);
+        return true;}
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         IntroFragment introFragment;
         Bundle bundle = new Bundle();
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case 0:
                 // bundle content according to section
                 bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.CULTURE));
@@ -99,7 +110,7 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
     }
 
     @Override
-    public Loader<List <Article>> onCreateLoader(int id, Bundle args) {
+    public Loader <List <Article>> onCreateLoader(int id, Bundle args) {
         return null;
     }
 

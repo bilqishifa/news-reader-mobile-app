@@ -1,6 +1,5 @@
 package com.example.android.newsapp;
 
-import java.io.IOException;
 
 public class ApiQueryBuilder {
 
@@ -15,7 +14,7 @@ public class ApiQueryBuilder {
     public static final String API_URL =
             "https://content.guardianapis.com/search?q=editions?q=uk&order-by=newest&page-size=4&show-fields=thumbnail%2Cbyline";
 
-    // decided against caching this information for now
+    // decided against hiding this information for now
     private static final String API_KEY = "&api-key=f33fec42-5b38-4790-a4b7-960bdea7b568";
 
     /**
@@ -25,7 +24,6 @@ public class ApiQueryBuilder {
      */
     public static String apiQuery(String tag) {
         StringBuilder stringBuilder = new StringBuilder();
-        // could test using .buildUpon() method as well - based on QuakeReport.EarthquakeActivity.onCreateLoader
 
         stringBuilder.append(API_URL);
         if (tag != null){

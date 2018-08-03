@@ -9,16 +9,19 @@
     tools:openDrawer="start"
     tools:context=".ArticleActivity">
 
-    <include layout="@layout/app_bar_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+    <!--vertical container to hold navigation menu-->
     <LinearLayout
         android:id="@+id/v_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!--custom action bar-->
+        <include layout="@layout/app_bar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!--menu items fragment-->
         <FrameLayout
             android:id="@+id/f_container"
             android:layout_width="match_parent"

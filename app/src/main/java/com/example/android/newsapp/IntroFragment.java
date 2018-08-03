@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IntroFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Article>>{
+public class IntroFragment extends Fragment implements LoaderManager.LoaderCallbacks <List <Article>> {
 
     private RecyclerView mRecyclerView;
     private ArticleAdapter mAdapter;
@@ -24,11 +24,16 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
 
     private String mUrl = ApiQueryBuilder.apiQuery(null);
 
-    public IntroFragment(){
+    public IntroFragment() {
         // required
     }
 
-    public static IntroFragment newInstance(Bundle bundle){
+    /**
+     * will enable fragment instantiation w/HTTP response in UI
+     * @param bundle
+     * @return
+     */
+    public static IntroFragment newInstance(Bundle bundle) {
         IntroFragment introFragment = new IntroFragment();
         introFragment.setArguments(bundle);
         return introFragment;
@@ -37,9 +42,9 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.rb_recyclerview,container,false);
+        View rootView = inflater.inflate(R.layout.rb_recyclerview, container, false);
 
-        if (getArguments() != null && getArguments().containsKey("url")){
+        if (getArguments() != null && getArguments().containsKey("url")) {
             String givenUrl = getArguments().getString("url");
             if (givenUrl != null && !givenUrl.isEmpty())
                 mUrl = givenUrl;
@@ -47,6 +52,7 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
 
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setAdapter(mAdapter);
         return rootView;
     }
 
@@ -56,27 +62,26 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
         getLoaderManager().initLoader(1, null, this);
     }
 
-
     @NonNull
     @Override
-    public Loader<List <Article>> onCreateLoader(int id, @Nullable Bundle args) {
+    public Loader <List <Article>> onCreateLoader(int id, @Nullable Bundle args) {
         return new ArticleLoader(getContext(), mUrl);
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader <List <Article>> loader, List <Article> data) {
-        if (data != null && !data.isEmpty()){
+        if (data != null && !data.isEmpty()) {
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setLayoutManager(mLayoutManager);
             mAdapter = new ArticleAdapter((ArrayList <Article>) data);
 
-              mAdapter.setOnItemClickListener(new ArticleAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                //method
-                Log.i("item ", "position" + position);
-            }
-        });
+            mAdapter.setOnItemClickListener(new ArticleAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    //method
+                    Log.i("item ", "position" + position);
+                }
+            });
             mRecyclerView.setAdapter(mAdapter);
         }
     }
