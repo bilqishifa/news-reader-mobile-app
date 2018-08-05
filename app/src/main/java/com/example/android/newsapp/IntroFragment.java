@@ -33,7 +33,7 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     private TextView placeholder;
     private Uri mUrl;
 
-    // an API query that will allow to chose a given theme
+    // an API query that will allow to chose a given theme in News App stage 2
     private String qUrl = apiQuery(null);
 
     public IntroFragment() {
@@ -42,7 +42,6 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
 
     /**
      * Enable fragment display
-     *
      * @param bundle
      * @return
      */
@@ -110,7 +109,8 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
             mAdapter.setOnItemClickListener(new ArticleAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
-                    Log.i("item ", "position in introFragment: " + position);
+                    //Log.i("item ", "position in introFragment: " + position);
+                    mUrl = Uri.parse(mAdapter.getmArticle().get(position).getUrl());
                     Intent i = new Intent(Intent.ACTION_VIEW, mUrl);
                     startActivity(i);
                 }
@@ -128,7 +128,10 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     public void onLoaderReset(@NonNull Loader <List <Article>> loader) {
     }
 
-    // verify network connection
+    /**
+     * verify network connection
+     * @return
+     */
     private boolean networkConnection() {
         boolean connected = false;
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -11,16 +11,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
+import static com.example.android.newsapp.ApiQueryBuilder.*;
+
 /**
- * resources:   Coding in Flow Navigation Drawer with Fragments tutorial
- *              https://github.com/codepath/android_guides/wiki/Fragment-Navigation-Drawer
- *              I also reverse engineered the template navigation bar that Android Studio provides
- * Special thanks to Iip from Udacity, who was a terrific mentor during this process.
+ * resources:   Coding in Flow 'Navigation Drawer with Fragments' tutorial
+ * https://github.com/codepath/android_guides/wiki/Fragment-Navigation-Drawer
+ * I also reverse engineered the template navigation bar that Android Studio provides
+ * Special thanks to Iip from Udacity, who was a terrific mentor during this process. And to Chris Addington who guided me during the onClick implementation.
  */
 
 public class ArticleActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks <List <Article>> {
@@ -52,7 +53,7 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         if (savedInstanceState == null) {
             //instantiate a new bundle + fragment
             Bundle bundle = new Bundle();
-            bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.INTRO));
+            bundle.putString("url", apiQuery(INTRO));
             IntroFragment introFragment = IntroFragment.newInstance(bundle);
             //bundle content to fragment
             getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
@@ -66,18 +67,19 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-        //open drawer
-        case android.R.id.home:
-        drawer.openDrawer(GravityCompat.START);
-        return true;}
+        switch (item.getItemId()) {
+            //open drawer
+            case android.R.id.home:
+                drawer.openDrawer(GravityCompat.START);
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
     /**
      * ** IMPORTANT **
      * the following section will become functional during stage 2
-     * still learning the process of using a RecyclerView
+     * still learning the process of orchestrating RecyclerView - Fragment - Navigation Drawer all together
      * @param item
      * @return
      */
@@ -88,22 +90,22 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         switch (item.getItemId()) {
             case 0:
                 // bundle content according to section
-                bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.CULTURE));
+                bundle.putString("url", apiQuery(CULTURE));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case 1:
-                bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.SCIENCE));
+                bundle.putString("url", apiQuery(SCIENCE));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case 2:
-                bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.TRAVEL_UK));
+                bundle.putString("url", apiQuery(TRAVEL_UK));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case 3:
-                bundle.putString("url", ApiQueryBuilder.apiQuery(ApiQueryBuilder.TECH));
+                bundle.putString("url", apiQuery(TECH));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
