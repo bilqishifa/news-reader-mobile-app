@@ -1,17 +1,20 @@
 package com.example.android.newsapp;
 
+import android.annotation.TargetApi;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ArticleAdapter extends RecyclerView.Adapter <ArticleAdapter.ArticleViewHolder> {
     private ArrayList <Article> mArticle;
@@ -29,20 +32,17 @@ public class ArticleAdapter extends RecyclerView.Adapter <ArticleAdapter.Article
     public class ArticleViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mTitle, mAuthor, mDate, mSection;
-        public String formattedDate, formattedTime;
         public ImageView mImageUrl;
-        public Uri mUrl;
+        public Uri aUrl;
 
         public ArticleViewHolder(final View itemView, final OnItemClickListener listener) {
             super(itemView);
 
+            mSection = itemView.findViewById(R.id.news_section);
             mImageUrl = itemView.findViewById(R.id.news_image);
             mTitle = itemView.findViewById(R.id.news_title);
-            mAuthor = itemView.findViewById(R.id.news_author);
-
-            // add date formatting here
             mDate = itemView.findViewById(R.id.news_date);
-            mSection = itemView.findViewById(R.id.news_section);
+            mAuthor = itemView.findViewById(R.id.news_author);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -52,8 +52,6 @@ public class ArticleAdapter extends RecyclerView.Adapter <ArticleAdapter.Article
                         if (position != RecyclerView.NO_POSITION) ;
                         {
                             listener.onItemClick(position);
-                            //Log.i("NA position is", " No. " + position);
-                            //Intent will go here
                         }
                     }
                 }
@@ -82,19 +80,13 @@ public class ArticleAdapter extends RecyclerView.Adapter <ArticleAdapter.Article
         }
         holder.mSection.setText(currentItem.getSection());
         holder.mTitle.setText(currentItem.getTitle());
-        holder.mAuthor.setText(currentItem.getAuthor());
         holder.mDate.setText(currentItem.getDate());
-        holder.mUrl = Uri.parse(currentItem.getUrl());
+        holder.mAuthor.setText(currentItem.getAuthor());
+        holder.aUrl = Uri.parse(currentItem.getUrl());
     }
 
     @Override
     public int getItemCount() {
         return mArticle.size();
-    }
-
-    // readable day dateTime
-    private String mDate(Date dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-        return dateFormat.format(dateObject);
     }
 }

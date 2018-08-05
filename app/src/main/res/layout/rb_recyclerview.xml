@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/d4dp"
-        android:layout_marginTop="@dimen/d4dp"
+        android:layout_marginBottom="@dimen/d0dp"
+        android:layout_marginTop="@dimen/d0dp"
         android:background="@android:color/transparent"
-        android:padding="@dimen/d4dp"
+        android:padding="@dimen/d0dp"
         android:scrollbars="vertical" />
+
+    <!--display if no data or no network is available-->
+    <TextView
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginTop="@dimen/d250dp"
+        android:gravity="center_vertical" />
 
 </LinearLayout>
