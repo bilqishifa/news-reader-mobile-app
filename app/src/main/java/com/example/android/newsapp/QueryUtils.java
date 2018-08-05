@@ -85,6 +85,8 @@ public class QueryUtils {
     }
 
     private static List <Article> parseJson(String articleJSON) {
+        String date;
+
         //abort operation if data is invalid
         if (TextUtils.isEmpty(articleJSON)) {
             return null;
@@ -104,14 +106,18 @@ public class QueryUtils {
 
                 String section = currentQuery.getString("sectionName");
                 String title = currentQuery.getString("webTitle");
-                String publishedDate = currentQuery.getString("webPublicationDate");
                 String url = currentQuery.getString("webUrl");
                 //int image,
                 JSONObject jsonChild2Response = currentQuery.getJSONObject("fields");
-                String author = jsonChild2Response.optString("byline"); // will return empty string if no value assigned
+                String author = jsonChild2Response.optString("byline"); // optString returns empty string if no value assigned
                 String thumbnail = jsonChild2Response.optString("thumbnail");
 
-                articles.add(new Article(section, title, publishedDate, url, author, decodeBitmap(thumbnail)));
+                String publishedDate = currentQuery.getString("webPublicationDate");
+                String[] fullDate;
+                fullDate = publishedDate.split("T");
+                date = fullDate[0];
+
+                articles.add(new Article(section, title, date, author, url, decodeBitmap(thumbnail)));
             }
 
         } catch (JSONException e) {

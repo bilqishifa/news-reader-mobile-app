@@ -4,21 +4,16 @@ import android.graphics.Bitmap;
 
 class Article {
 
-    private String mTitle, mSection, mAuthor, mUrl, mDate;
-    private Bitmap mImageUrl; // String url mUrl = url;
+    private String mTitle, mSection, mDate, mAuthor, mUrl;
+    private Bitmap mImageUrl;
 
-
-    public Article(String section, String title, String author, String date, String url, Bitmap image) {
+    public Article(String section, String title, String date, String author, String url, Bitmap image) {
         mSection = section;
         mTitle = title;
-        mAuthor = author;
         mDate = date;
+        mAuthor = author;
         mUrl = url;
         mImageUrl = image;
-    }
-
-    public Bitmap getImageUrl() {
-        return mImageUrl;
     }
 
     public String getSection() {
@@ -29,15 +24,19 @@ class Article {
         return mTitle;
     }
 
-    public String getAuthor() {
-        return mAuthor;
-    }
-
     public String getDate() {
         return mDate;
     }
 
+    public String getAuthor() {
+        return mAuthor;
+    }
+
     public String getUrl() {
         return mUrl;
+    }
+
+    public Bitmap getImageUrl() {
+        return mImageUrl;
     }
 }

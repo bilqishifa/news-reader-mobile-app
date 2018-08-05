@@ -12,4 +12,6 @@
     <string name="menu_section">Your selection</string>
     <string name="thumbnail_source">source_The_Guardian</string>
     <string name="home">Home</string>
+    <string name="noNetwork">No network connection</string>
+    <string name="noArticles">No articles to display, \nplease visit us again soon</string>
 </resources>

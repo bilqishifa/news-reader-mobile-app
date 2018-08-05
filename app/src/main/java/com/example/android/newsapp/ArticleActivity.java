@@ -29,7 +29,6 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
     private ArticleAdapter adapter;
-    private TextView emtyStateText;
 
     public static final String LOG_TAG = ArticleActivity.class.getName();
 
@@ -61,6 +60,10 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         }
     }
 
+    /**
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -71,6 +74,13 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * ** IMPORTANT **
+     * the following section will become functional during stage 2
+     * still learning the process of using a RecyclerView
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         IntroFragment introFragment;
