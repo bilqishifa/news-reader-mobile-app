@@ -1,13 +1,8 @@
 package com.example.android.newsapp;
 
-import android.annotation.TargetApi;
-import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +58,6 @@ public class ArticleAdapter extends RecyclerView.Adapter <ArticleAdapter.Article
         mArticle = newsList;
     }
 
-
     @NonNull
     @Override
     public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -75,6 +69,7 @@ public class ArticleAdapter extends RecyclerView.Adapter <ArticleAdapter.Article
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
         Article currentItem = mArticle.get(position);
+
         if (currentItem.getImageUrl() != null) {
             holder.mImageUrl.setImageBitmap(currentItem.getImageUrl());
         }
@@ -89,4 +84,13 @@ public class ArticleAdapter extends RecyclerView.Adapter <ArticleAdapter.Article
     public int getItemCount() {
         return mArticle.size();
     }
+
+    public ArrayList <Article> getmArticle() {
+        return mArticle;
+    }
+
+    public void setmArticle(ArrayList <Article> mArticle) {
+        this.mArticle = mArticle;
+    }
+
 }
