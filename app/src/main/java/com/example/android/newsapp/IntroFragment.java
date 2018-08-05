@@ -1,6 +1,5 @@
 package com.example.android.newsapp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -71,7 +70,7 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
         // message if no data available
         placeholder = rootView.findViewById(R.id.placeholder);
 
-        if (!networkConnectionOk()) {
+        if (!networkConnection()) {
             placeholder.setText(R.string.noNetwork);
             placeholder.setVisibility(View.VISIBLE);
         }
@@ -84,7 +83,7 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
      */
     @Override
     public void onResume() {
-        if (networkConnectionOk()) {
+        if (networkConnection()) {
             super.onResume();
             getLoaderManager().initLoader(1, null, this);
         }
@@ -116,7 +115,7 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
                     startActivity(i);
                 }
             });
-        } else if (!networkConnectionOk()) {
+        } else if (networkConnection()) {
             placeholder.setText(R.string.noNetwork);
             placeholder.setVisibility(View.VISIBLE);
         } else {
@@ -130,7 +129,7 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     }
 
     // verify network connection
-    private boolean networkConnectionOk() {
+    private boolean networkConnection() {
         boolean connected = false;
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm == null) {
