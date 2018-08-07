@@ -1,4 +1,4 @@
-# newsapp
+# News app
 <h3>Real News</h3>
 A single-screen news app that displays data from an API call.<hr>
 <strong>Classes, Interfaces and Objects used:</strong>
@@ -11,4 +11,5 @@ A single-screen news app that displays data from an API call.<hr>
 <li>Loader</li>
 </ul>
 <p>Preview:
+  
 ![preview](/images/intro.jpg)
