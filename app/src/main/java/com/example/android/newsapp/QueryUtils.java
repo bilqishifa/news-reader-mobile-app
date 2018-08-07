@@ -23,7 +23,7 @@ import java.util.List;
 public class QueryUtils {
     private static final String LOG_TAG = ArticleActivity.class.getName();
 
-    private QueryUtils() { //required to avoid bugs if this class gets instantiated
+    private QueryUtils() {
     }
 
     private static URL generateUrl(String newsUrl) {
@@ -87,12 +87,10 @@ public class QueryUtils {
     private static List <Article> parseJson(String articleJSON) {
         String date;
 
-        //abort operation if data is invalid
         if (TextUtils.isEmpty(articleJSON)) {
             return null;
         }
 
-        //instantiate array based on query
         List <Article> articles = new ArrayList <Article>();
 
         try {
@@ -107,9 +105,8 @@ public class QueryUtils {
                 String section = currentQuery.getString("sectionName");
                 String title = currentQuery.getString("webTitle");
                 String url = currentQuery.getString("webUrl");
-                //int image,
                 JSONObject jsonChild2Response = currentQuery.getJSONObject("fields");
-                String author = jsonChild2Response.optString("byline"); // optString returns empty string if no value assigned
+                String author = jsonChild2Response.optString("byline");
                 String thumbnail = jsonChild2Response.optString("thumbnail");
 
                 String publishedDate = currentQuery.getString("webPublicationDate");
