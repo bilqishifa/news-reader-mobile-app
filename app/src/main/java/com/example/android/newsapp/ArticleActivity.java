@@ -51,11 +51,9 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            //instantiate a new bundle + fragment
             Bundle bundle = new Bundle();
             bundle.putString("url", apiQuery(INTRO));
             IntroFragment introFragment = IntroFragment.newInstance(bundle);
-            //bundle content to fragment
             getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
             navigationView.setCheckedItem(R.id.nav_intro);
         }
@@ -68,7 +66,6 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            //open drawer
             case android.R.id.home:
                 drawer.openDrawer(GravityCompat.START);
                 return true;

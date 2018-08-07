@@ -13,7 +13,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +41,7 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
 
     /**
      * Enable fragment display
+     *
      * @param bundle
      * @return
      */
@@ -54,37 +54,29 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.rb_recyclerview, container, false);
 
-        if (getArguments() != null && getArguments().containsKey("url")) {
-            String givenUrl = getArguments().getString("url");
-            if (givenUrl != null && !givenUrl.isEmpty())
-                qUrl = givenUrl;
-        }
+        String givenUrl = getArguments().getString("url");
+        if (givenUrl != null && !givenUrl.isEmpty()) qUrl = givenUrl;
+
+        View rootView = inflater.inflate(R.layout.rb_recyclerview, container, false);
 
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
-        // message if no data available
         placeholder = rootView.findViewById(R.id.placeholder);
-
-        if (!networkConnection()) {
-            placeholder.setText(R.string.noNetwork);
-            placeholder.setVisibility(View.VISIBLE);
-        }
 
         return rootView;
     }
 
-    /**
-     * Bundle data in in case a change of state takes place
-     */
     @Override
-    public void onResume() {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         if (networkConnection()) {
-            super.onResume();
             getLoaderManager().initLoader(1, null, this);
+        } else {
+            placeholder.setText(R.string.noNetwork);
+            placeholder.setVisibility(View.VISIBLE);
         }
     }
 
@@ -109,19 +101,16 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
             mAdapter.setOnItemClickListener(new ArticleAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
-                    //Log.i("item ", "position in introFragment: " + position);
                     mUrl = Uri.parse(mAdapter.getmArticle().get(position).getUrl());
                     Intent i = new Intent(Intent.ACTION_VIEW, mUrl);
                     startActivity(i);
                 }
             });
-        } else if (networkConnection()) {
-            placeholder.setText(R.string.noNetwork);
-            placeholder.setVisibility(View.VISIBLE);
         } else {
             placeholder.setText(R.string.noArticles);
             placeholder.setVisibility(View.VISIBLE);
         }
+
     }
 
     @Override
@@ -130,20 +119,14 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
 
     /**
      * verify network connection
+     *
      * @return
      */
     private boolean networkConnection() {
-        boolean connected = false;
-        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm == null) {
-            return connected;
-        }
 
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
-        if (ni != null && ni.isConnectedOrConnecting()) ;
-        {
-            connected = true;
-        }
-        return connected;
+
+        return ni != null && ni.isConnected();
     }
 }
