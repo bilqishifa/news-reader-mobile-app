@@ -1,36 +1,37 @@
 package com.example.android.newsapp;
 
 
+import android.net.Uri;
+import android.support.annotation.Nullable;
+
 public class ApiQueryBuilder {
 
-    /**
-     * This section is informed by the app built by Stephen Wood - https://github.com/doowtnehpets/BitBacklashNewsfeed
-     */
-    // sections
-    public static final String CULTURE = "&section=culture", SCIENCE = "&section=science",
-            TRAVEL_UK = "&tag=travel/uk", TECH = "&tag=technology/technology", INTRO = "";
+    public static final String CULTURE = "culture", SCIENCE = "science",
+            TRAVEL_UK = "travel", TECH = "technology";
 
-    // API query base note it is ordered by latest publications w/size limit of 3 articles
-    public static final String API_URL =
-            "https://content.guardianapis.com/search?q=editions?q=uk&order-by=newest&page-size=4&show-fields=thumbnail%2Cbyline";
+    //public static final String ORDERBY = "&order-by=", PAGE_SIZE = "&page-size=";
 
-    // decided against hiding this information for now
-    private static final String API_KEY = "&api-key=f33fec42-5b38-4790-a4b7-960bdea7b568";
+    // API query base note it is ordered by latest publications w/size limit of 6 articles
+    public static final String API_URL = "https://content.guardianapis.com/search";
+
+    // decided against hiding this information for now:
+    private static final String API_KEY = "f33fec42-5b38-4790-a4b7-960bdea7b568";
 
     /**
-     * mimics the way QueryUtils reads an InputStream  - see method QueryUtils.readInputStream
-     * @param tag
+     * @param section
      * @return
      */
-    public static String apiQuery(String tag) {
-        StringBuilder stringBuilder = new StringBuilder();
+    public static String apiQuery(@Nullable String section, int pageSize) {
+        Uri baseUri = Uri.parse(API_URL);
+        Uri.Builder queryBuilder = baseUri.buildUpon();
 
-        stringBuilder.append(API_URL);
-        if (tag != null){
-            stringBuilder.append(tag);
-        }
-        stringBuilder.append(API_KEY);
+        queryBuilder.appendQueryParameter("show-fields", "thumbnail,byline");
 
-        return stringBuilder.toString();
+        if (section != null) queryBuilder.appendQueryParameter("section", section);
+        queryBuilder.appendQueryParameter("page-size", Integer.toString(pageSize));
+        queryBuilder.appendQueryParameter("api-key", API_KEY);
+
+        return queryBuilder.toString();
+
     }
 }

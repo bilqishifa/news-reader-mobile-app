@@ -1,6 +1,7 @@
 package com.example.android.newsapp;
 
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -33,6 +35,8 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
 
     public static final String LOG_TAG = ArticleActivity.class.getName();
 
+    private static final int LOADER_ID = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +56,7 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
 
         if (savedInstanceState == null) {
             Bundle bundle = new Bundle();
-            bundle.putString("url", apiQuery(INTRO));
+            bundle.putString("url", apiQuery(null, 2));
             IntroFragment introFragment = IntroFragment.newInstance(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
             navigationView.setCheckedItem(R.id.nav_intro);
@@ -60,57 +64,48 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
     }
 
     /**
-     * @param item
-     * @return
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawer.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * ** IMPORTANT **
-     * the following section will become functional during stage 2
-     * still learning the process of orchestrating RecyclerView - Fragment - Navigation Drawer all together
+     *
      * @param item
      * @return
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
         IntroFragment introFragment;
         Bundle bundle = new Bundle();
         switch (item.getItemId()) {
-            case 0:
+            case R.id.nav_intro:
+                bundle.putString("url", apiQuery(null, 2));
+                introFragment = IntroFragment.newInstance(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
+                break;
+            case R.id.art_design:
                 // bundle content according to section
-                bundle.putString("url", apiQuery(CULTURE));
+                bundle.putString("url", apiQuery(CULTURE, 6));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
-            case 1:
-                bundle.putString("url", apiQuery(SCIENCE));
+            case R.id.science:
+                bundle.putString("url", apiQuery(SCIENCE, 6));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
-            case 2:
-                bundle.putString("url", apiQuery(TRAVEL_UK));
+            case R.id.travel:
+                bundle.putString("url", apiQuery(TRAVEL_UK, 6));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
-            case 3:
-                bundle.putString("url", apiQuery(TECH));
+            case R.id.tech:
+                bundle.putString("url", apiQuery(TECH, 6));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
-            case R.id.calendar:
-                Toast.makeText(this, "Saved to reading list", Toast.LENGTH_SHORT).show();
+            case R.id.settings:
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
                 break;
             case R.id.share:
-                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_SHORT).show();
                 break;
         }
 

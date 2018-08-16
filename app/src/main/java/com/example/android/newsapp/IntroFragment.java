@@ -2,10 +2,12 @@ package com.example.android.newsapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,8 +23,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.android.newsapp.ApiQueryBuilder.*;
-
 public class IntroFragment extends Fragment implements LoaderManager.LoaderCallbacks <List <Article>> {
 
     private RecyclerView mRecyclerView;
@@ -32,8 +32,12 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     private TextView placeholder;
     private Uri mUrl;
 
-    // an API query that will allow to chose a given theme in News App stage 2
-    private String qUrl = apiQuery(null);
+    private int pageSize;
+
+    private static final int LOADER_ID = 0;
+
+    private String qUrl;
+    String orderBy;
 
     public IntroFragment() {
         // required
@@ -55,9 +59,6 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        String givenUrl = getArguments().getString("url");
-        if (givenUrl != null && !givenUrl.isEmpty()) qUrl = givenUrl;
-
         View rootView = inflater.inflate(R.layout.rb_recyclerview, container, false);
 
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
@@ -73,7 +74,7 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (networkConnection()) {
-            getLoaderManager().initLoader(1, null, this);
+            getLoaderManager().initLoader(LOADER_ID, null, this);
         } else {
             placeholder.setText(R.string.noNetwork);
             placeholder.setVisibility(View.VISIBLE);
@@ -83,6 +84,17 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     @NonNull
     @Override
     public Loader <List <Article>> onCreateLoader(int id, @Nullable Bundle args) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        pageSize = Integer.parseInt(sharedPrefs.getString(getString(R.string.limit_page_size_key),getString(R.string.limit_page_size_value)));
+
+        orderBy = sharedPrefs.getString(getString(R.string.order_by_key), getString(R.string.order_by_recent_value));
+
+       //not switching sections nor passing shared prefs!
+        String givenQuery = getArguments().getString("section");
+        if(givenQuery != null && !givenQuery.isEmpty())
+            qUrl = ApiQueryBuilder.apiQuery(null, R.string.limit_page_size_value);
+        else qUrl = ApiQueryBuilder.apiQuery(null, pageSize);
         return new ArticleLoader(getContext(), qUrl);
     }
 

@@ -2,31 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_intro"
             android:title="@string/home" />
         <item
-            android:id="@+id/nav_seightseeing"
+            android:id="@+id/art_design"
             android:title="@string/art" />
         <item
-            android:id="@+id/nav_seightseeing1"
+            android:id="@+id/science"
             android:title="@string/science" />
 
         <item
-            android:id="@+id/nav_seightseeing2"
-            android:title="@string/green" />
+            android:id="@+id/travel"
+            android:title="@string/travel" />
         <item
-            android:id="@+id/nav_seightseeing3"
+            android:id="@+id/tech"
             android:title="@string/tech" />
     </group>
 
-    <item android:title="@string/menu_section">
+    <item android:title="Custom settings">
         <menu>
             <item
-                android:id="@+id/calendar"
-                android:title="@string/add_to_list"/>
+                android:id="@+id/settings"
+                android:title="@string/settings_title"
+                />
             <item
                 android:id="@+id/share"
                 android:title="@string/share"/>
