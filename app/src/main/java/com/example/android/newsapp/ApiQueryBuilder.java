@@ -9,9 +9,7 @@ public class ApiQueryBuilder {
     public static final String CULTURE = "culture", SCIENCE = "science",
             TRAVEL_UK = "travel", TECH = "technology";
 
-    //public static final String ORDERBY = "&order-by=", PAGE_SIZE = "&page-size=";
-
-    // API query base note it is ordered by latest publications w/size limit of 6 articles
+    // API query base
     public static final String API_URL = "https://content.guardianapis.com/search";
 
     // decided against hiding this information for now:

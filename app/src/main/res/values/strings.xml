@@ -15,9 +15,9 @@
     <string name="order_by_recent_value" translatable="false">newest</string>
 
     <string name="limit_page_size_label">Limit articles to display to:</string>
-    <string name="limit_page_size_key" translatable="false">page_size</string>
+    <string name="limit_page_size_key" translatable="false">@string/limit_page_size_value</string>
     <string name="limit_page_size_value" translatable="false">6</string>
-    <string-array name="pref_page_size_labels">
+   <string-array name="pref_page_size_labels">
         <item>4 articles</item>
         <item>6 articles</item>
         <item>8 articles</item>
