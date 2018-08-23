@@ -32,6 +32,7 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
     private ArticleAdapter adapter;
+    private int pageSize;
 
     public static final String LOG_TAG = ArticleActivity.class.getName();
 
@@ -56,7 +57,7 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
 
         if (savedInstanceState == null) {
             Bundle bundle = new Bundle();
-            bundle.putString("url", apiQuery(null, 2));
+            bundle.putString("url", apiQuery(null, Integer.parseInt(getString(R.string.limit_page_size_value))));
             IntroFragment introFragment = IntroFragment.newInstance(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
             navigationView.setCheckedItem(R.id.nav_intro);
@@ -64,7 +65,6 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
     }
 
     /**
-     *
      * @param item
      * @return
      */
@@ -75,28 +75,28 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         Bundle bundle = new Bundle();
         switch (item.getItemId()) {
             case R.id.nav_intro:
-                bundle.putString("url", apiQuery(null, 2));
+                bundle.putString("url", apiQuery(null,Integer.parseInt(getString(R.string.limit_page_size_value))));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case R.id.art_design:
                 // bundle content according to section
-                bundle.putString("url", apiQuery(CULTURE, 6));
+                bundle.putString("url", apiQuery(CULTURE, Integer.parseInt(getString(R.string.limit_page_size_value))));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case R.id.science:
-                bundle.putString("url", apiQuery(SCIENCE, 6));
+                bundle.putString("url", apiQuery(SCIENCE, Integer.parseInt(getString(R.string.limit_page_size_value))));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case R.id.travel:
-                bundle.putString("url", apiQuery(TRAVEL_UK, 6));
+                bundle.putString("url", apiQuery(TRAVEL_UK, Integer.parseInt(getString(R.string.limit_page_size_value))));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case R.id.tech:
-                bundle.putString("url", apiQuery(TECH, 6));
+                bundle.putString("url", apiQuery(TECH, Integer.parseInt(getString(R.string.limit_page_size_value))));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;

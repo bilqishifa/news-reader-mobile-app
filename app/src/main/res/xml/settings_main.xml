@@ -10,6 +10,4 @@
         android:key="@string/order_by_key"
         android:title="@string/limit_page_size_label"/>
 
-
-
 </PreferenceScreen>

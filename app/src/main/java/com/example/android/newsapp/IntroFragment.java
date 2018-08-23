@@ -23,19 +23,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.android.newsapp.ApiQueryBuilder.*;
+
 public class IntroFragment extends Fragment implements LoaderManager.LoaderCallbacks <List <Article>> {
 
     private RecyclerView mRecyclerView;
     private ArticleAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
     private TextView placeholder;
     private Uri mUrl;
-
     private int pageSize;
-
     private static final int LOADER_ID = 0;
-
     private String qUrl;
     String orderBy;
 
@@ -86,15 +84,18 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     public Loader <List <Article>> onCreateLoader(int id, @Nullable Bundle args) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        pageSize = Integer.parseInt(sharedPrefs.getString(getString(R.string.limit_page_size_key),getString(R.string.limit_page_size_value)));
+        pageSize = Integer.parseInt(sharedPrefs.getString(getString(R.string.limit_page_size_key), getString(R.string.limit_page_size_value)));
 
         orderBy = sharedPrefs.getString(getString(R.string.order_by_key), getString(R.string.order_by_recent_value));
 
-       //not switching sections nor passing shared prefs!
-        String givenQuery = getArguments().getString("section");
-        if(givenQuery != null && !givenQuery.isEmpty())
-            qUrl = ApiQueryBuilder.apiQuery(null, R.string.limit_page_size_value);
-        else qUrl = ApiQueryBuilder.apiQuery(null, pageSize);
+        String givenQuery = getArguments().getString("url");
+        if (givenQuery != null && !givenQuery.isEmpty()) {
+            qUrl = givenQuery;
+        } else {
+            // if no section is selected build a generic view based on base URL
+            //Integer.parseInt(getString(R.string.limit_page_size_value))));
+            qUrl = apiQuery(null, pageSize);
+        }
         return new ArticleLoader(getContext(), qUrl);
     }
 

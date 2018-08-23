@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- order by recent-->
     <string-array name="settings_order_by_labels">
         <item>@string/order_by_recent_label</item>
         <item>@string/limit_page_size_label</item>
@@ -9,4 +10,12 @@
         <item>@string/order_by_recent_value</item>
         <item>@string/limit_page_size_value</item>
     </string-array>
+
+  <!--  set page size-->
+<!--    <string-array name="settings_page_size">
+        <item>@string/size_4</item>
+        <item>@string/size_6</item>
+        <item>@string/size_8</item>
+    </string-array>-->
+
 </resources>
