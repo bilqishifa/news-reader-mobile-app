@@ -13,12 +13,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     private RecyclerView mRecyclerView;
     private ArticleAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView placeholder;
     private Uri mUrl;
     private int pageSize;
@@ -59,11 +62,16 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
 
         View rootView = inflater.inflate(R.layout.rb_recyclerview, container, false);
 
+        swipeRefreshLayout = rootView.findViewById(R.id.srl);
+        swipeRefreshLayout.setRefreshing(true);
+
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
         placeholder = rootView.findViewById(R.id.placeholder);
+
+        updateOnRefresh();
 
         return rootView;
     }
@@ -74,6 +82,7 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
         if (networkConnection()) {
             getLoaderManager().initLoader(LOADER_ID, null, this);
         } else {
+            swipeRefreshLayout.setRefreshing(false);
             placeholder.setText(R.string.noNetwork);
             placeholder.setVisibility(View.VISIBLE);
         }
@@ -92,8 +101,6 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
         if (givenQuery != null && !givenQuery.isEmpty()) {
             qUrl = givenQuery;
         } else {
-            // if no section is selected build a generic view based on base URL
-            //Integer.parseInt(getString(R.string.limit_page_size_value))));
             qUrl = apiQuery(null, pageSize);
         }
         return new ArticleLoader(getContext(), qUrl);
@@ -101,7 +108,10 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onLoadFinished(@NonNull Loader <List <Article>> loader, List <Article> data) {
+        // prevent swipe refresh from taking place
+        swipeRefreshLayout.setRefreshing(false);
 
+        // hide error message is data available
         placeholder.setVisibility(View.GONE);
 
         if (data != null && !data.isEmpty()) {
@@ -120,6 +130,7 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
                 }
             });
         } else {
+            // error message No Articles to display
             placeholder.setText(R.string.noArticles);
             placeholder.setVisibility(View.VISIBLE);
         }
@@ -141,5 +152,32 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
         NetworkInfo ni = cm.getActiveNetworkInfo();
 
         return ni != null && ni.isConnected();
+    }
+
+  /**
+     * update loader is there is a network connection
+     */
+    private void updateLoader(){
+        if (networkConnection()){
+            swipeRefreshLayout.setRefreshing(true);
+            getLoaderManager().restartLoader(LOADER_ID, null, this);
+        } else {
+            swipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(getContext(), R.string.noNetwork, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * implements SwipeRefreshLayout.OnRefreshListener() method
+     */
+    private void updateOnRefresh() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (!getLoaderManager().hasRunningLoaders()) {
+                    updateLoader();
+                }
+            }
+        });
     }
 }

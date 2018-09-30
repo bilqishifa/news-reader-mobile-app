@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -30,7 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
             bindPreferenceToValue(mostRecent);
 
             // not working
-          /* Preference pageSize = findPreference(getString(R.string.limit_page_size_key));
+           /*Preference pageSize = findPreference(getString(R.string.limit_page_size_key));
            bindPreferenceToValue(pageSize);*/
         }
 
@@ -41,8 +42,9 @@ public class SettingsActivity extends AppCompatActivity {
                 ListPreference listPreference = (ListPreference) preference;
                 int preferenceIndex = listPreference.findIndexOfValue(stringValue);
                 if (preferenceIndex >= 0) {
-                    CharSequence[] labels = listPreference.getEntries();
+                    CharSequence[]labels = listPreference.getEntries();
                     preference.setSummary(labels[preferenceIndex]);
+                    Log.v("preference switched to", stringValue );
                 }
             } else {
                 preference.setSummary(stringValue);
