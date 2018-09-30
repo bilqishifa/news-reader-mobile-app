@@ -3,6 +3,10 @@ package com.example.android.newsapp;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,6 +37,8 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
     private ActionBarDrawerToggle toggle;
     private ArticleAdapter adapter;
     private int pageSize;
+    // URL for request API data
+    private static final String requestUrl = "https://content.guardianapis.com/search";
 
     public static final String LOG_TAG = ArticleActivity.class.getName();
 
@@ -115,7 +121,15 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
 
     @Override
     public Loader <List <Article>> onCreateLoader(int id, Bundle args) {
-        return null;
+        /*String pageSize = "8";
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        pageSize = sharedPreferences.getString(getString(R.string.limit_page_size_key), String.valueOf(6));
+
+        Uri baseUri = Uri.parse(requestUrl);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+        uriBuilder.appendQueryParameter("page-size", "8");
+        return new ArticleLoader(this, uriBuilder);*/
     }
 
     @Override
@@ -127,4 +141,6 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
     public void onLoaderReset(Loader <List <Article>> loader) {
 
     }
+
+
 }

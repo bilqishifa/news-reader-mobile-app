@@ -16,7 +16,7 @@
 
     <string name="limit_page_size_label">Limit articles to display to:</string>
     <string name="limit_page_size_key" translatable="false">@string/limit_page_size_value</string>
-    <string name="limit_page_size_value" translatable="false">6</string>
+    <string name="limit_page_size_value" translatable="false">10</string>
    <string-array name="pref_page_size_labels">
         <item>4 articles</item>
         <item>6 articles</item>
