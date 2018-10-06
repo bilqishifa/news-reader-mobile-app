@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+//import import android.support.v4.content.AsyncTaskLoader;
+import android.content.AsyncTaskLoader;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +19,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.List;
@@ -30,7 +33,9 @@ import static com.example.android.newsapp.ApiQueryBuilder.*;
  * Special thanks to Iip from Udacity, who was a terrific mentor during this process. And to Chris Addington who guided me during the onClick implementation.
  */
 
-public class ArticleActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks <List <Article>> {
+public class ArticleActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks <List <Article>>,
+        SharedPreferences.OnSharedPreferenceChangeListener{
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private NavigationView navigationView;
@@ -121,26 +126,31 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
 
     @Override
     public Loader <List <Article>> onCreateLoader(int id, Bundle args) {
-        /*String pageSize = "8";
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        pageSize = sharedPreferences.getString(getString(R.string.limit_page_size_key), String.valueOf(6));
+        String pageSize = sharedPreferences.getString(getString(R.string.limit_page_size_key),
+                getString(R.string.limit_page_size_value));
 
         Uri baseUri = Uri.parse(requestUrl);
         Uri.Builder uriBuilder = baseUri.buildUpon();
-        uriBuilder.appendQueryParameter("page-size", "8");
-        return new ArticleLoader(this, uriBuilder);*/
+        if (requestUrl != null && !requestUrl.isEmpty()){
+            uriBuilder.appendQueryParameter("page-size", pageSize);
+        }
+        return new ArticleLoader(this, uriBuilder.toString());
     }
 
     @Override
     public void onLoadFinished(Loader <List <Article>> loader, List <Article> data) {
-
+        
     }
 
     @Override
     public void onLoaderReset(Loader <List <Article>> loader) {
-
     }
 
-
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.limit_page_size_key))) {
+            getLoaderManager().restartLoader(LOADER_ID, null, this);
+        }
+    }
 }

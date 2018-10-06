@@ -1,9 +1,11 @@
 package com.example.android.newsapp;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
+//import android.content.AsyncTaskLoader;
 import android.util.Log;
 
 import java.util.List;
