@@ -1,30 +1,34 @@
 package com.example.android.newsapp;
 
-import android.app.LoaderManager;
 import android.content.Intent;
-import android.content.Loader;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.preference.Preference;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
-//import import android.support.v4.content.AsyncTaskLoader;
-import android.content.AsyncTaskLoader;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.android.newsapp.ApiQueryBuilder.*;
+import static com.example.android.newsapp.ApiQueryBuilder.CULTURE;
+import static com.example.android.newsapp.ApiQueryBuilder.SCIENCE;
+import static com.example.android.newsapp.ApiQueryBuilder.TECH;
+import static com.example.android.newsapp.ApiQueryBuilder.TRAVEL_UK;
+import static com.example.android.newsapp.ApiQueryBuilder.apiQuery;
 
 /**
  * resources:   Coding in Flow 'Navigation Drawer with Fragments' tutorial
@@ -34,14 +38,21 @@ import static com.example.android.newsapp.ApiQueryBuilder.*;
  */
 
 public class ArticleActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks <List <Article>>,
-        SharedPreferences.OnSharedPreferenceChangeListener{
+        implements NavigationView.OnNavigationItemSelectedListener
+        //android.support.v4.app.LoaderManager.LoaderCallbacks <List <Article>>
+        // SharedPreferences.OnSharedPreferenceChangeListener
+{
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
     private ArticleAdapter adapter;
     private int pageSize;
+    private RecyclerView mRecyclerView;
+    private ArticleAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView placeholder;
     // URL for request API data
     private static final String requestUrl = "https://content.guardianapis.com/search";
 
@@ -86,7 +97,7 @@ public class ArticleActivity extends AppCompatActivity
         Bundle bundle = new Bundle();
         switch (item.getItemId()) {
             case R.id.nav_intro:
-                bundle.putString("url", apiQuery(null,Integer.parseInt(getString(R.string.limit_page_size_value))));
+                bundle.putString("url", apiQuery(null, Integer.parseInt(getString(R.string.limit_page_size_value))));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
@@ -124,33 +135,58 @@ public class ArticleActivity extends AppCompatActivity
         return true;
     }
 
+   /* @NonNull
     @Override
-    public Loader <List <Article>> onCreateLoader(int id, Bundle args) {
+    public android.support.v4.content.Loader <List <Article>> onCreateLoader(int id, @Nullable Bundle args) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String pageSize = sharedPreferences.getString(getString(R.string.limit_page_size_key),
                 getString(R.string.limit_page_size_value));
 
         Uri baseUri = Uri.parse(requestUrl);
         Uri.Builder uriBuilder = baseUri.buildUpon();
-        if (requestUrl != null && !requestUrl.isEmpty()){
+        if (requestUrl != null && !requestUrl.isEmpty()) {
             uriBuilder.appendQueryParameter("page-size", pageSize);
         }
+        Log.e("artActivity onCreateLdr", "starts ok");
         return new ArticleLoader(this, uriBuilder.toString());
     }
 
     @Override
-    public void onLoadFinished(Loader <List <Article>> loader, List <Article> data) {
-        
+    public void onLoadFinished(@NonNull android.support.v4.content.Loader <List <Article>> loader, List <Article> data) {
+        placeholder.setVisibility(View.GONE);
+
+        if (data != null && !data.isEmpty()) {
+
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            mAdapter = new ArticleAdapter((ArrayList <Article>) data);
+            mRecyclerView.setAdapter(mAdapter);
+            Log.e("artActivity onLdFinish", " ok");
+
+            mAdapter.setOnItemClickListener(new ArticleAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    mUrl = Uri.parse(mAdapter.getmArticle().get(position).getUrl());
+                    Intent i = new Intent(Intent.ACTION_VIEW, mUrl);
+                    startActivity(i);
+                }
+            });
+        } else {
+            // error message No Articles to display
+            placeholder.setText(R.string.noArticles);
+            placeholder.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
-    public void onLoaderReset(Loader <List <Article>> loader) {
-    }
+    public void onLoaderReset(@NonNull android.support.v4.content.Loader <List <Article>> loader) {
 
-    @Override
+    }*/
+
+   /* @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.limit_page_size_key))) {
             getLoaderManager().restartLoader(LOADER_ID, null, this);
         }
-    }
+    }*/
 }

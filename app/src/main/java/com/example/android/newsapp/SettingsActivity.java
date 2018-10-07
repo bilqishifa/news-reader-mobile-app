@@ -31,8 +31,9 @@ public class SettingsActivity extends AppCompatActivity {
             bindPreferenceToValue(mostRecent);
 
             // not working
-           /*Preference pageSize = findPreference(getString(R.string.limit_page_size_key));
-           bindPreferenceToValue(pageSize);*/
+           Preference pageSize = findPreference(getString(R.string.limit_page_size_key));
+           bindPreferenceToValue(pageSize);
+
         }
 
         @Override
