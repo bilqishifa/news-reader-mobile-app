@@ -25,7 +25,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.android.newsapp.ApiQueryBuilder.*;
+import static com.example.android.newsapp.ApiQueryBuilder.apiQuery;
 
 public class IntroFragment extends Fragment implements LoaderManager.LoaderCallbacks <List <Article>> {
 
