@@ -1,12 +1,8 @@
 package com.example.android.newsapp;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,14 +11,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.example.android.newsapp.ApiQueryBuilder.CULTURE;
 import static com.example.android.newsapp.ApiQueryBuilder.SCIENCE;
@@ -34,12 +25,11 @@ import static com.example.android.newsapp.ApiQueryBuilder.apiQuery;
  * resources:   Coding in Flow 'Navigation Drawer with Fragments' tutorial
  * https://github.com/codepath/android_guides/wiki/Fragment-Navigation-Drawer
  * I also reverse engineered the template navigation bar that Android Studio provides
- * Special thanks to Iip from Udacity, who was a terrific mentor during this process. And to Chris Addington who guided me during the onClick implementation.
+ * Special thanks to Iip Permana and Chris Addington.
  */
 
 public class ArticleActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
-        //android.support.v4.app.LoaderManager.LoaderCallbacks <List <Article>>
         // SharedPreferences.OnSharedPreferenceChangeListener
 {
     private DrawerLayout drawer;
@@ -134,54 +124,6 @@ public class ArticleActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-   /* @NonNull
-    @Override
-    public android.support.v4.content.Loader <List <Article>> onCreateLoader(int id, @Nullable Bundle args) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String pageSize = sharedPreferences.getString(getString(R.string.limit_page_size_key),
-                getString(R.string.limit_page_size_value));
-
-        Uri baseUri = Uri.parse(requestUrl);
-        Uri.Builder uriBuilder = baseUri.buildUpon();
-        if (requestUrl != null && !requestUrl.isEmpty()) {
-            uriBuilder.appendQueryParameter("page-size", pageSize);
-        }
-        Log.e("artActivity onCreateLdr", "starts ok");
-        return new ArticleLoader(this, uriBuilder.toString());
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull android.support.v4.content.Loader <List <Article>> loader, List <Article> data) {
-        placeholder.setVisibility(View.GONE);
-
-        if (data != null && !data.isEmpty()) {
-
-            mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.setLayoutManager(mLayoutManager);
-            mAdapter = new ArticleAdapter((ArrayList <Article>) data);
-            mRecyclerView.setAdapter(mAdapter);
-            Log.e("artActivity onLdFinish", " ok");
-
-            mAdapter.setOnItemClickListener(new ArticleAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position) {
-                    mUrl = Uri.parse(mAdapter.getmArticle().get(position).getUrl());
-                    Intent i = new Intent(Intent.ACTION_VIEW, mUrl);
-                    startActivity(i);
-                }
-            });
-        } else {
-            // error message No Articles to display
-            placeholder.setText(R.string.noArticles);
-            placeholder.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull android.support.v4.content.Loader <List <Article>> loader) {
-
-    }*/
 
    /* @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
