@@ -3,19 +3,25 @@
     <!-- order by recent-->
     <string-array name="settings_order_by_labels">
         <item>@string/order_by_recent_label</item>
-        <item>@string/limit_page_size_label</item>
+        <item>@string/order_by_oldest_label</item>
     </string-array>
 
     <string-array name="settings_order_by_values">
         <item>@string/order_by_recent_value</item>
-        <item>@string/limit_page_size_value</item>
+        <item>@string/order_by_oldest_value</item>
     </string-array>
 
-  <!--  set page size-->
-<!--    <string-array name="settings_page_size">
-        <item>@string/size_4</item>
-        <item>@string/size_6</item>
-        <item>@string/size_8</item>
-    </string-array>-->
+    <!-- page size options-->
+    <string-array name="page_size_labels">
+        <item>@string/page_size_four</item>
+        <item>@string/page_size_six</item>
+        <item>@string/page_size_eight</item>
+    </string-array>
+
+    <string-array name="page_size_options">
+        <item>@string/page_size_four</item>
+        <item>@string/page_size_six</item>
+        <item>@string/page_size_eight</item>
+    </string-array>
 
 </resources>

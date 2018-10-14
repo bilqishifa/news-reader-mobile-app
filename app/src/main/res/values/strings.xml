@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Real News from The Guardian</string>
-    <string name="thumbnail_source">source_The_Guardian</string>
+    <string name="thumbnail_source">source The Guardian</string>
     <string name="home">Home</string>
     <string name="settings_menu">Settings</string>
 
@@ -14,26 +14,30 @@
     <string name="order_by_recent_label">Most recent</string>
     <string name="order_by_recent_value" translatable="false">newest</string>
 
-    <string name="limit_page_size_label">Limit articles to display to:</string>
-    <string name="limit_page_size_key" translatable="false">@string/limit_page_size_value</string>
-    <string name="limit_page_size_value" translatable="false">10</string>
-   <string-array name="pref_page_size_labels">
-        <item>4 articles</item>
-        <item>6 articles</item>
-        <item>8 articles</item>
-    </string-array>
-    <string-array name="pref_page_size_values">
-        <item>4</item>
-        <item>6</item>
-        <item>8</item>
-    </string-array>
+    <string name="order_by_oldest_label">Older articles</string>
+    <string name="order_by_oldest_value" translatable="false">oldest</string>
+
+    <string name="settings_page_size_label">Limit articles to display to:</string>
+    <string name="settings_page_size_key" translatable="false">settings_page_size</string>
+    <string name="settings_page_size" translatable="false">@string/page_size_ten</string>
+    <string name="page_size_ten">10</string>
+
+    <!-- options page labels-->
+    <string name="page_size_four_l">Limit page size to 4 articles</string>
+    <string name="page_size_six_l">Limit page size to 6 articles</string>
+    <string name="page_size_eight_l">Limit page size to  articles</string>
+
+    <!-- options page size-->
+    <string name="page_size_four">4</string>
+    <string name="page_size_six">6</string>
+    <string name="page_size_eight">8</string>
 
     <!-- navigation bar accessibility-->
     <string name="navbaropen">Open Navigation Bar</string>
     <string name="navbarclose">Close Navigation Bar</string>
 
     <!-- user action options-->
-    <string name="settings_title">Settings</string>
+    <string name="settings_title">Settings Options</string>
     <string name="share">Sharing options</string>
 
     <!--segments-->

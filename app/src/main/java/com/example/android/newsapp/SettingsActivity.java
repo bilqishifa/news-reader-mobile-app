@@ -26,13 +26,11 @@ public class SettingsActivity extends AppCompatActivity {
             addPreferencesFromResource(R.xml.settings_main);
             setHasOptionsMenu(true);
 
-            Preference mostRecent = findPreference(getString(R.string.order_by_key));
-            bindPreferenceToValue(mostRecent);
+            Preference pageSize = findPreference(getString(R.string.settings_page_size_key));
+            bindPreferenceToValue(pageSize);
 
-            // not working
-           Preference pageSize = findPreference(getString(R.string.limit_page_size_key));
-           bindPreferenceToValue(pageSize);
-
+            Preference orderBy = findPreference(getString(R.string.order_by_key));
+            bindPreferenceToValue(orderBy);
         }
 
         @Override
@@ -42,7 +40,7 @@ public class SettingsActivity extends AppCompatActivity {
                 ListPreference listPreference = (ListPreference) preference;
                 int preferenceIndex = listPreference.findIndexOfValue(stringValue);
                 if (preferenceIndex >= 0) {
-                    CharSequence[]labels = listPreference.getEntries();
+                    CharSequence[] labels = listPreference.getEntries();
                     preference.setSummary(labels[preferenceIndex]);
                     Log.v("preference switched to", stringValue );
                 }
@@ -54,12 +52,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         private void bindPreferenceToValue(Preference preference) {
             preference.setOnPreferenceChangeListener(this);
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(preference.getContext());
-            String prefString = preferences.getString(preference.getKey(), "");
-            onPreferenceChange(preference, prefString);
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(preference.getContext());
+            String prefsString = sharedPrefs.getString(preference.getKey(), "");
+            onPreferenceChange(preference, prefsString);
         }
-
     }
-
-
 }

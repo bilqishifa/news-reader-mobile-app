@@ -16,6 +16,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,9 @@ import java.util.List;
 
 import static com.example.android.newsapp.ApiQueryBuilder.apiQuery;
 
-public class IntroFragment extends Fragment implements LoaderManager.LoaderCallbacks <List <Article>> {
+public class IntroFragment extends Fragment implements
+        LoaderManager.LoaderCallbacks <List <Article>>
+        , SharedPreferences.OnSharedPreferenceChangeListener {
 
     private RecyclerView mRecyclerView;
     private ArticleAdapter mAdapter;
@@ -35,7 +38,7 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView placeholder;
     private Uri mUrl;
-    private int pageSize;
+    int pageSize;
     private static final int LOADER_ID = 0;
     private String qUrl;
     String orderBy;
@@ -71,6 +74,9 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
 
         placeholder = rootView.findViewById(R.id.placeholder);
 
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(String.valueOf(R.string.settings_page_size_key), Context.MODE_PRIVATE);
+        Log.e("Prefs", "ok");
+
         updateOnRefresh();
 
         return rootView;
@@ -93,9 +99,11 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
     public Loader <List <Article>> onCreateLoader(int id, @Nullable Bundle args) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        pageSize = Integer.parseInt(sharedPrefs.getString(getString(R.string.limit_page_size_key), getString(R.string.limit_page_size_value)));
+        pageSize = Integer.parseInt(sharedPrefs.getString(getString(R.string.settings_page_size_key),
+                getString(R.string.settings_page_size)));
 
-        orderBy = sharedPrefs.getString(getString(R.string.order_by_key), getString(R.string.order_by_recent_value));
+        orderBy = sharedPrefs.getString(getString(R.string.order_by_key),
+                getString(R.string.order_by_default));
 
         String givenQuery = getArguments().getString("url");
         if (givenQuery != null && !givenQuery.isEmpty()) {
@@ -154,11 +162,11 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
         return ni != null && ni.isConnected();
     }
 
-  /**
+    /**
      * update loader is there is a network connection
      */
-    private void updateLoader(){
-        if (networkConnection()){
+    private void updateLoader() {
+        if (networkConnection()) {
             swipeRefreshLayout.setRefreshing(true);
             getLoaderManager().restartLoader(LOADER_ID, null, this);
         } else {
@@ -179,5 +187,12 @@ public class IntroFragment extends Fragment implements LoaderManager.LoaderCallb
                 }
             }
         });
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.settings_page_size))) {
+            getLoaderManager().restartLoader(LOADER_ID, null, this);
+        }
     }
 }
