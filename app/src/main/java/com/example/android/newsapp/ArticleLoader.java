@@ -8,8 +8,6 @@ import android.util.Log;
 
 import java.util.List;
 
-//import android.content.AsyncTaskLoader;
-
 public class ArticleLoader extends AsyncTaskLoader <List <Article>> {
     private String url;
 

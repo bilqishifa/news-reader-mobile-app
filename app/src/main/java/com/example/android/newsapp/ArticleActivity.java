@@ -25,13 +25,11 @@ import static com.example.android.newsapp.ApiQueryBuilder.apiQuery;
  * resources:   Coding in Flow 'Navigation Drawer with Fragments' tutorial
  * https://github.com/codepath/android_guides/wiki/Fragment-Navigation-Drawer
  * I also reverse engineered the template navigation bar that Android Studio provides
- * Special thanks to Iip Permana and Chris Addington.
+ * Special thanks to Iip Permana, Iva Ivanova and Chris Addington.
  */
 
 public class ArticleActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener
-        // SharedPreferences.OnSharedPreferenceChangeListener
-{
+        implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private NavigationView navigationView;
@@ -43,6 +41,7 @@ public class ArticleActivity extends AppCompatActivity
     private RecyclerView.LayoutManager mLayoutManager;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView placeholder;
+
     // URL for request API data
     private static final String requestUrl = "https://content.guardianapis.com/search";
 
@@ -67,9 +66,10 @@ public class ArticleActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         if (savedInstanceState == null) {
             Bundle bundle = new Bundle();
-            bundle.putString("url", apiQuery(null, Integer.parseInt(getString(R.string.limit_page_size_value))));
+            bundle.putString("url", apiQuery(null, Integer.parseInt(getString(R.string.page_size_ten))));
             IntroFragment introFragment = IntroFragment.newInstance(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
             navigationView.setCheckedItem(R.id.nav_intro);
@@ -87,28 +87,28 @@ public class ArticleActivity extends AppCompatActivity
         Bundle bundle = new Bundle();
         switch (item.getItemId()) {
             case R.id.nav_intro:
-                bundle.putString("url", apiQuery(null, Integer.parseInt(getString(R.string.limit_page_size_value))));
+                bundle.putString("url", apiQuery(null, Integer.parseInt(getString(R.string.page_size_ten))));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case R.id.art_design:
                 // bundle content according to section
-                bundle.putString("url", apiQuery(CULTURE, Integer.parseInt(getString(R.string.limit_page_size_value))));
+                bundle.putString("url", apiQuery(CULTURE, Integer.parseInt(getString(R.string.page_size_ten))));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case R.id.science:
-                bundle.putString("url", apiQuery(SCIENCE, Integer.parseInt(getString(R.string.limit_page_size_value))));
+                bundle.putString("url", apiQuery(SCIENCE, Integer.parseInt(getString(R.string.page_size_ten))));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case R.id.travel:
-                bundle.putString("url", apiQuery(TRAVEL_UK, Integer.parseInt(getString(R.string.limit_page_size_value))));
+                bundle.putString("url", apiQuery(TRAVEL_UK, Integer.parseInt(getString(R.string.page_size_ten))));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
             case R.id.tech:
-                bundle.putString("url", apiQuery(TECH, Integer.parseInt(getString(R.string.limit_page_size_value))));
+                bundle.putString("url", apiQuery(TECH, Integer.parseInt(getString(R.string.page_size_ten))));
                 introFragment = IntroFragment.newInstance(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.f_container, introFragment).commit();
                 break;
@@ -124,11 +124,4 @@ public class ArticleActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-   /* @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(getString(R.string.limit_page_size_key))) {
-            getLoaderManager().restartLoader(LOADER_ID, null, this);
-        }
-    }*/
 }
