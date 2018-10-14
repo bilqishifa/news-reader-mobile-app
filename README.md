@@ -12,4 +12,4 @@ A single-screen news app that displays data from an API call.<hr>
 </ul>
 <p>Preview:
   
-![preview](/images/intro.jpg)
+![preview](images/Real_News_from_The_Guardian_overview.jpg)
