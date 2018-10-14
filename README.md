@@ -9,6 +9,7 @@ A single-screen news app that displays data from an API call.<hr>
 <li>Parcelable</li>
 <li>QueryUtils</li>
 <li>Loader</li>
+<li>SharedPreferences</li>
 </ul>
 <p>Preview:
   
