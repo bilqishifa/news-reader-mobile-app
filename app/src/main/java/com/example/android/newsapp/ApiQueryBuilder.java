@@ -12,8 +12,8 @@ public class ApiQueryBuilder {
     // API query base
     public static final String API_URL = "https://content.guardianapis.com/search";
 
-    // decided against hiding this information for now:
-    private static final String API_KEY = "f33fec42-5b38-4790-a4b7-960bdea7b568";
+    // API KEY
+    private static final String API_KEY = BuildConfig.API_KEY;
 
     /**
      * @param section
